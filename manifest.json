@@ -1,12 +1,20 @@
-"icons": [
-  {
-    "src": "icon-192.png.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  },
-  {
-    "src": "Icon-512.png.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-]
+{
+  "name": "RxStack Pediatric Calculator",
+  "short_name": "RxStack",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "icons": [
+    {
+      "src": "icon-192.png.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Icon-512.png.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
