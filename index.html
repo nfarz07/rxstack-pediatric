@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -12,11 +12,12 @@
 <link rel="apple-touch-icon" href="icon-192.png.png">
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Segoe UI, sans-serif;
+font-family:Segoe UI,sans-serif;
 }
 
 body{
@@ -25,12 +26,12 @@ padding:20px;
 }
 
 .container{
-max-width:650px;
+max-width:700px;
 margin:auto;
-background:white;
+background:#fff;
 padding:25px;
 border-radius:20px;
-box-shadow:0 8px 25px rgba(0,0,0,.1);
+box-shadow:0 10px 25px rgba(0,0,0,.1);
 }
 
 h1{
@@ -72,17 +73,19 @@ background:#0d47a1;
 
 .result{
 margin-top:20px;
-padding:15px;
-background:#eef6ff;
+padding:18px;
+background:#e8f5e9;
+border-left:5px solid #2e7d32;
 border-radius:12px;
 display:none;
+line-height:1.8;
 }
 
 .warning{
 margin-top:20px;
-padding:12px;
+padding:15px;
 background:#fff3cd;
-border-radius:10px;
+border-radius:12px;
 font-size:14px;
 }
 
@@ -90,9 +93,11 @@ footer{
 margin-top:25px;
 text-align:center;
 font-size:14px;
-color:#555;
+color:#666;
 }
+
 </style>
+
 </head>
 
 <body>
@@ -101,21 +106,20 @@ color:#555;
 
 <h1>RxStack Pediatric Calculator</h1>
 
-<label>Weight (kg)</label>
-<input type="number" id="weight" placeholder="Enter weight">
+<label>Age (Years)</label> <input type="number" id="age" placeholder="Enter age">
 
-<label>Route</label>
-<select id="route" onchange="loadDrugs()">
+<label>Weight (kg)</label> <input type="number" id="weight" placeholder="Enter weight">
+
+<label>Route</label> <select id="route" onchange="loadDrugs()">
+
 <option value="PO">PO (Oral)</option>
 <option value="IV">IV</option>
 <option value="IM">IM</option>
 </select>
 
-<label>Drug</label>
-<select id="drug"></select>
+<label>Drug</label> <select id="drug"></select>
 
-<label>Strength</label>
-<select id="strength"></select>
+<label>Strength</label> <select id="strength"></select>
 
 <button onclick="calculateDose()">
 Calculate Dose
@@ -124,12 +128,13 @@ Calculate Dose
 <div id="result" class="result"></div>
 
 <div class="warning">
-⚠ Educational tool only. Verify dose according to local guideline before prescribing.
+⚠ Educational tool only. Verify indication, age suitability and maximum dose before prescribing.
 </div>
 
 <footer>
-Developed by Dr. Mizan<br>
-rxstack.dev
+<b>Developed by Dr. Mizan</b><br>
+rxstack.dev<br>
+Version 1.1
 </footer>
 
 </div>
@@ -294,6 +299,7 @@ strengths:[
 {label:"500 mg in 10 mL", mgml:50}
 ]
 }
+
 ],
 
 IM:[
@@ -311,7 +317,6 @@ strengths:[
 
 };
 
-
 function loadDrugs(){
 
 const route=document.getElementById("route").value;
@@ -322,7 +327,6 @@ drugSelect.innerHTML="";
 drugs[route].forEach((drug,index)=>{
 
 let option=document.createElement("option");
-
 option.value=index;
 option.textContent=drug.name;
 
@@ -337,9 +341,7 @@ loadStrengths();
 function loadStrengths(){
 
 const route=document.getElementById("route").value;
-
 const drugIndex=document.getElementById("drug").value;
-
 const strengthSelect=document.getElementById("strength");
 
 strengthSelect.innerHTML="";
@@ -347,9 +349,7 @@ strengthSelect.innerHTML="";
 drugs[route][drugIndex].strengths.forEach((s,index)=>{
 
 let option=document.createElement("option");
-
 option.value=index;
-
 option.textContent=s.label;
 
 strengthSelect.appendChild(option);
@@ -360,43 +360,31 @@ strengthSelect.appendChild(option);
 
 function calculateDose(){
 
-const weight=parseFloat(
-document.getElementById("weight").value
-);
+const weight=parseFloat(document.getElementById("weight").value);
 
 if(!weight){
-alert("Enter weight");
+alert("Please enter weight");
 return;
 }
 
-const route=
-document.getElementById("route").value;
+const route=document.getElementById("route").value;
+const drugIndex=document.getElementById("drug").value;
+const strengthIndex=document.getElementById("strength").value;
 
-const drugIndex=
-document.getElementById("drug").value;
+const drug=drugs[route][drugIndex];
+const strength=drug.strengths[strengthIndex];
 
-const strengthIndex=
-document.getElementById("strength").value;
+const totalMg=weight*drug.dose;
+const totalMl=totalMg/strength.mgml;
 
-const drug=
-drugs[route][drugIndex];
+document.getElementById("result").style.display="block";
 
-const strength=
-drug.strengths[strengthIndex];
-
-const totalMg=
-weight * drug.dose;
-
-const totalMl=
-totalMg / strength.mgml;
-
-const result=
-`
+document.getElementById("result").innerHTML=`
 <h3>${drug.name}</h3>
 
-<p><b>Route:</b> ${route}</p>
-
 <p><b>Weight:</b> ${weight} kg</p>
+
+<p><b>Route:</b> ${route}</p>
 
 <p><b>Dose:</b> ${drug.dose} mg/kg/dose</p>
 
@@ -407,16 +395,17 @@ const result=
 <p><b>Give:</b> ${totalMl.toFixed(1)} mL</p>
 
 <p><b>Frequency:</b> ${drug.frequency}</p>
+
+<hr>
+
+<p style="color:red;">
+Verify indication and maximum dose before prescribing.
+</p>
 `;
-
-document.getElementById("result").style.display="block";
-
-document.getElementById("result").innerHTML=result;
 
 }
 
-document.getElementById("drug")
-.addEventListener("change",loadStrengths);
+document.getElementById("drug").addEventListener("change",loadStrengths);
 
 loadDrugs();
 
