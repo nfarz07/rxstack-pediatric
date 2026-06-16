@@ -1,6 +1,7 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,470 +10,182 @@
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1976d2">
+
+<link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,sans-serif;
-}
-
-body{
-background:#f4f7fb;
-padding:20px;
-}
-
-.container{
-max-width:700px;
-margin:auto;
-background:#fff;
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.1);
-}
-
-h1{
-text-align:center;
-color:#1565c0;
-margin-bottom:20px;
-}
-
-label{
-display:block;
-margin-top:15px;
-font-weight:600;
-}
-
-input,select{
-width:100%;
-padding:12px;
-margin-top:6px;
-border:1px solid #ccc;
-border-radius:10px;
-font-size:16px;
-}
-
-button{
-width:100%;
-padding:14px;
-margin-top:20px;
-border:none;
-border-radius:10px;
-background:#1565c0;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#0d47a1;
-}
-
-.result{
-margin-top:20px;
-padding:18px;
-background:#e8f5e9;
-border-left:5px solid #2e7d32;
-border-radius:12px;
-display:none;
-line-height:1.8;
-}
-  .result h3{
-color:#2e7d32;
-margin-bottom:10px;
-font-size:22px;
-}
-
-.result hr{
-margin:10px 0;
-border:none;
-border-top:1px solid #c8e6c9;
-}
-
-.result p{
-margin:4px 0;
-}
-
-.warning{
-margin-top:20px;
-padding:15px;
-background:#fff3cd;
-border-radius:12px;
-font-size:14px;
-}
-
-.footer{
-margin-top:30px;
-padding-top:20px;
-border-top:1px solid #e0e0e0;
-text-align:center;
-font-size:14px;
-color:#555;
-line-height:1.8;
-}
-
-.footer a{
-color:#1565c0;
-text-decoration:none;
-font-weight:600;
-}
-
-.footer a:hover{
-text-decoration:underline;
-}
-
-.footer small{
-color:#888;
-}
-
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="container">
 
+<header>
+
 <h1>🩺 RxStack</h1>
 
-<p style="text-align:center;color:#666;margin-bottom:15px;">
+<p class="subtitle">
 Pediatric Dose Calculator
 </p>
 
-<label>Age (Years)</label> <input type="number" id="age" placeholder="Enter age">
-
-<label>Weight (kg)</label> <input type="number" id="weight" placeholder="Enter weight">
-
-<label>Route</label> <select id="route" onchange="loadDrugs()">
-
-<option value="PO">PO (Oral)</option>
-<option value="IV">IV</option>
-<option value="IM">IM</option>
-</select>
-
-<label>Drug</label> <select id="drug"></select>
-
-<label>Strength</label> <select id="strength"></select>
-
-<button onclick="calculateDose()">
-Calculate Dose
+<button id="darkModeBtn">
+🌙 Dark Mode
 </button>
 
-<div id="result" class="result"></div>
+</header>
+
+<label>Age (Years)</label>
+<input
+type="number"
+id="age"
+placeholder="Enter age">
+
+<label>Weight (kg)</label>
+<input
+type="number"
+id="weight"
+placeholder="Enter weight">
+
+<label>Category</label>
+<select id="category">
+
+<option value="all">All Drugs</option>
+
+<option value="analgesic">
+Analgesics
+</option>
+
+<option value="antibiotic">
+Antibiotics
+</option>
+
+<option value="respiratory">
+Respiratory
+</option>
+
+<option value="antihistamine">
+Antihistamines
+</option>
+
+<option value="gi">
+GI Drugs
+</option>
+
+</select>
+
+<label>Route</label>
+
+<select
+id="route"
+onchange="loadDrugs()">
+
+<option value="PO">
+PO (Oral)
+</option>
+
+<option value="IV">
+IV
+</option>
+
+<option value="IM">
+IM
+</option>
+
+</select>
+
+<label>Search Drug</label>
+
+<input
+type="text"
+id="drugSearch"
+placeholder="Search drug...">
+
+<label>Drug</label>
+
+<select id="drug">
+</select>
+
+<label>Strength</label>
+
+<select id="strength">
+</select>
+
+<button
+class="calculate-btn"
+onclick="calculateDose()">
+
+Calculate Dose
+
+</button>
+
+<div
+id="result"
+class="result">
+</div>
 
 <div class="warning">
-⚠ Educational tool only. Verify indication, age suitability and maximum dose before prescribing.
+
+⚠ Educational tool only.
+Always verify indication,
+age suitability,
+renal function,
+allergy history,
+and maximum dose before prescribing.
+
 </div>
 
 <footer class="footer">
 
-  <strong>Developed by Dr. Mizan</strong>
+<strong>
+RxStack™
+</strong>
 
-  <br><br>
+<br>
 
-  🌐
-  <a href="https://rxstack.dev"
-     target="_blank">
-     rxstack.dev
-  </a>
+Pediatric Dose Calculator
 
-  <br>
+<br><br>
 
-  📞
-  <a href="tel:+8801711429356">
-     01711 429356
-  </a>
+🌐
 
-  <br><br>
+<a
+href="https://rxstack.dev"
+target="_blank">
 
-  <small>
-    RxStack Pediatric Calculator v1.2
-  </small>
+rxstack.dev
+
+</a>
+
+&nbsp;|&nbsp;
+
+📞
+
+<a
+href="tel:+8801711429356">
+
+01711-429356
+
+</a>
+
+<br><br>
+
+<small>
+
+Developed by Dr. Mizan
+
+<br>
+
+Version 2.0 Development
+
+</small>
 
 </footer>
 
 </div>
 
-<script>
-
-const drugs = {
-
-PO:[
-
-{
-name:"Paracetamol",
-dose:15,
-frequency:"QID",
-strengths:[
-{label:"120 mg/5 mL", mgml:24},
-{label:"250 mg/5 mL", mgml:50}
-]
-},
-
-{
-name:"Ibuprofen",
-dose:10,
-frequency:"TDS",
-strengths:[
-{label:"100 mg/5 mL", mgml:20}
-]
-},
-
-{
-name:"Amoxicillin",
-dose:25,
-frequency:"BD",
-strengths:[
-{label:"125 mg/5 mL", mgml:25},
-{label:"250 mg/5 mL", mgml:50},
-{label:"400 mg/5 mL", mgml:80}
-]
-},
-
-{
-name:"Co-amoxiclav",
-dose:22.5,
-frequency:"BD",
-strengths:[
-{label:"156.25 mg/5 mL", mgml:31.25},
-{label:"312.5 mg/5 mL", mgml:62.5}
-]
-},
-
-{
-name:"Cefixime",
-dose:4,
-frequency:"BD",
-strengths:[
-{label:"50 mg/5 mL", mgml:10},
-{label:"100 mg/5 mL", mgml:20}
-]
-},
-
-{
-name:"Cephalexin",
-dose:25,
-frequency:"BD",
-strengths:[
-{label:"125 mg/5 mL", mgml:25},
-{label:"250 mg/5 mL", mgml:50}
-]
-},
-
-{
-name:"Azithromycin",
-dose:10,
-frequency:"OD",
-strengths:[
-{label:"200 mg/5 mL", mgml:40}
-]
-},
-
-{
-name:"Clarithromycin",
-dose:7.5,
-frequency:"BD",
-strengths:[
-{label:"125 mg/5 mL", mgml:25},
-{label:"250 mg/5 mL", mgml:50}
-]
-},
-
-{
-name:"Metronidazole",
-dose:7.5,
-frequency:"TDS",
-strengths:[
-{label:"200 mg/5 mL", mgml:40}
-]
-},
-
-{
-name:"Salbutamol Syrup",
-dose:0.1,
-frequency:"TDS",
-strengths:[
-{label:"2 mg/5 mL", mgml:0.4}
-]
-},
-
-{
-name:"Ondansetron",
-dose:0.15,
-frequency:"TDS",
-strengths:[
-{label:"4 mg/5 mL", mgml:0.8}
-]
-}
-
-],
-
-IV:[
-
-{
-name:"Ceftriaxone",
-dose:50,
-frequency:"OD",
-strengths:[
-{label:"1 g in 10 mL", mgml:100}
-]
-},
-
-{
-name:"Ampicillin",
-dose:50,
-frequency:"QID",
-strengths:[
-{label:"500 mg in 5 mL", mgml:100}
-]
-},
-
-{
-name:"Cefotaxime",
-dose:50,
-frequency:"TDS",
-strengths:[
-{label:"1 g in 10 mL", mgml:100}
-]
-},
-
-{
-name:"Amikacin",
-dose:15,
-frequency:"OD",
-strengths:[
-{label:"100 mg/2 mL", mgml:50}
-]
-},
-
-{
-name:"Meropenem",
-dose:20,
-frequency:"TDS",
-strengths:[
-{label:"500 mg in 10 mL", mgml:50}
-]
-}
-
-],
-
-IM:[
-
-{
-name:"Gentamicin",
-dose:7.5,
-frequency:"OD",
-strengths:[
-{label:"40 mg/mL", mgml:40}
-]
-}
-
-]
-
-};
-
-function loadDrugs(){
-
-const route=document.getElementById("route").value;
-const drugSelect=document.getElementById("drug");
-
-drugSelect.innerHTML="";
-
-drugs[route].forEach((drug,index)=>{
-
-let option=document.createElement("option");
-option.value=index;
-option.textContent=drug.name;
-
-drugSelect.appendChild(option);
-
-});
-
-loadStrengths();
-
-}
-
-function loadStrengths(){
-
-const route=document.getElementById("route").value;
-const drugIndex=document.getElementById("drug").value;
-const strengthSelect=document.getElementById("strength");
-
-strengthSelect.innerHTML="";
-
-drugs[route][drugIndex].strengths.forEach((s,index)=>{
-
-let option=document.createElement("option");
-option.value=index;
-option.textContent=s.label;
-
-strengthSelect.appendChild(option);
-
-});
-
-}
-
-function calculateDose(){
-
-const weight=parseFloat(document.getElementById("weight").value);
-
-if(!weight){
-alert("Please enter weight");
-return;
-}
-
-const route=document.getElementById("route").value;
-const drugIndex=document.getElementById("drug").value;
-const strengthIndex=document.getElementById("strength").value;
-
-const drug=drugs[route][drugIndex];
-const strength=drug.strengths[strengthIndex];
-
-const totalMg=weight*drug.dose;
-const totalMl=totalMg/strength.mgml;
-
-document.getElementById("result").style.display="block";
-
-document.getElementById("result").innerHTML=`
-<h3>${drug.name}</h3>
-
-<p><b>Weight:</b> ${weight} kg</p>
-
-<p><b>Route:</b> ${route}</p>
-
-<p><b>Dose:</b> ${drug.dose} mg/kg/dose</p>
-
-<p><b>Strength:</b> ${strength.label}</p>
-
-<p><b>Required:</b> ${totalMg.toFixed(1)} mg</p>
-
-<p><b>Give:</b> ${totalMl.toFixed(1)} mL</p>
-
-<p><b>Frequency:</b> ${drug.frequency}</p>
-
-<hr>
-
-<p style="color:red;">
-Verify indication and maximum dose before prescribing.
-</p>
-`;
-
-}
-
-document.getElementById("drug").addEventListener("change",loadStrengths);
-
-loadDrugs();
-
-if ("serviceWorker" in navigator) {
-window.addEventListener("load", () => {
-navigator.serviceWorker.register("./sw.js");
-});
-}
-
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
+```
