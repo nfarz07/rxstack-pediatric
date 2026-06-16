@@ -138,7 +138,26 @@ rxstack.dev
 
 const drugs = {
 
-PO: [
+PO:[
+
+{
+name:"Paracetamol",
+dose:15,
+frequency:"QID",
+strengths:[
+{label:"120 mg/5 mL", mgml:24},
+{label:"250 mg/5 mL", mgml:50}
+]
+},
+
+{
+name:"Ibuprofen",
+dose:10,
+frequency:"TDS",
+strengths:[
+{label:"100 mg/5 mL", mgml:20}
+]
+},
 
 {
 name:"Amoxicillin",
@@ -148,6 +167,16 @@ strengths:[
 {label:"125 mg/5 mL", mgml:25},
 {label:"250 mg/5 mL", mgml:50},
 {label:"400 mg/5 mL", mgml:80}
+]
+},
+
+{
+name:"Co-amoxiclav",
+dose:22.5,
+frequency:"BD",
+strengths:[
+{label:"156.25 mg/5 mL", mgml:31.25},
+{label:"312.5 mg/5 mL", mgml:62.5}
 ]
 },
 
@@ -162,11 +191,58 @@ strengths:[
 },
 
 {
+name:"Cephalexin",
+dose:25,
+frequency:"BD",
+strengths:[
+{label:"125 mg/5 mL", mgml:25},
+{label:"250 mg/5 mL", mgml:50}
+]
+},
+
+{
 name:"Azithromycin",
 dose:10,
 frequency:"OD",
 strengths:[
 {label:"200 mg/5 mL", mgml:40}
+]
+},
+
+{
+name:"Clarithromycin",
+dose:7.5,
+frequency:"BD",
+strengths:[
+{label:"125 mg/5 mL", mgml:25},
+{label:"250 mg/5 mL", mgml:50}
+]
+},
+
+{
+name:"Metronidazole",
+dose:7.5,
+frequency:"TDS",
+strengths:[
+{label:"200 mg/5 mL", mgml:40}
+]
+},
+
+{
+name:"Salbutamol Syrup",
+dose:0.1,
+frequency:"TDS",
+strengths:[
+{label:"2 mg/5 mL", mgml:0.4}
+]
+},
+
+{
+name:"Ondansetron",
+dose:0.15,
+frequency:"TDS",
+strengths:[
+{label:"4 mg/5 mL", mgml:0.8}
 ]
 }
 
@@ -190,8 +266,34 @@ frequency:"QID",
 strengths:[
 {label:"500 mg in 5 mL", mgml:100}
 ]
-}
+},
 
+{
+name:"Cefotaxime",
+dose:50,
+frequency:"TDS",
+strengths:[
+{label:"1 g in 10 mL", mgml:100}
+]
+},
+
+{
+name:"Amikacin",
+dose:15,
+frequency:"OD",
+strengths:[
+{label:"100 mg/2 mL", mgml:50}
+]
+},
+
+{
+name:"Meropenem",
+dose:20,
+frequency:"TDS",
+strengths:[
+{label:"500 mg in 10 mL", mgml:50}
+]
+}
 ],
 
 IM:[
@@ -208,6 +310,7 @@ strengths:[
 ]
 
 };
+
 
 function loadDrugs(){
 
